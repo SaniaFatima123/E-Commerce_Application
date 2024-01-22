@@ -12,7 +12,7 @@ public class RoleServiceImpl implements IRoleService{
     private RoleDao dao;
 
     @Override
-    public Role createUser(Role role) {
+    public Role createNewRole(Role role) {
        return dao.save(role);
     }
 }
