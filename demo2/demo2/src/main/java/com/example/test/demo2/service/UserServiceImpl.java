@@ -37,7 +37,7 @@ public class UserServiceImpl implements IUserService{
         adminUser.setUserName("Sania@123");
         adminUser.setUserFirstName("Sania");
         adminUser.setUserLastName("Fatima");
-        adminUser.setUserPassword("123456");
+        adminUser.setUserPassword(getEncodedPassword("123456"));
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
         adminUser.setRoles(adminRoles);
@@ -49,25 +49,29 @@ public class UserServiceImpl implements IUserService{
 //        user.setUserName("Shah@123");
 //        user.setUserFirstName("Shah");
 //        user.setUserLastName("Sidd");
-//        user.setUserPassword("123456");
+//        user.setUserPassword(getEncodedPassword("123456"));
 //        Set<Role> userRoles = new HashSet<>();
 //        userRoles.add(userRole);
 //        user.setRoles(userRoles);
 //        //saving the Users in dao
 //        userDao.save(user);
     }
+
     public User registerNewUser(User user) {
         Role role = roleDao.findById("User").get();
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(role);
         user.setRoles(userRoles);
         user.setUserPassword(getEncodedPassword(user.getUserPassword()));
+        System.out.println("Password encoded");
 
         return userDao.save(user);
     }
 
     public String getEncodedPassword(String password) {
+        System.out.println("Password encoding");
         return passwordEncoder.encode(password);
     }
 }
+
 
